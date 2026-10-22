@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rifa Solidária Ademir Moreira Primo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Layout: cabeçalho verde como o folheto, grade de números 100-799 agrupada por centena, barra fixa de reserva no rodapé */
+:root{
+  --bg:#eef4ef; --surface:#ffffff; --ink:#10261a; --muted:#566b5d; --line:#d3e0d6;
+  --green:#166534; --green-ink:#ffffff; --free:#e2f2e7; --free-ink:#0f4f28;
+  --sel:#166534; --sel-ink:#ffffff; --res:#f6d365; --res-ink:#4a3600;
+  --sold:#dfe4e1; --sold-ink:#8a958f; --accent:#fde68a; --accent-ink:#3d2f00;
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif; --font-body:"Figtree",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1a12; --surface:#13271b; --ink:#e6f2ea; --muted:#9db3a5; --line:#254031;
+  --green:#2f9e5a; --green-ink:#04170b; --free:#1b3a28; --free-ink:#bfe8cd;
+  --sel:#4cc17d; --sel-ink:#04170b; --res:#c9a227; --res-ink:#1c1400;
+  --sold:#1a2a21; --sold-ink:#5f7367; --accent:#fde68a; --accent-ink:#3d2f00; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1a12; --surface:#13271b; --ink:#e6f2ea; --muted:#9db3a5; --line:#254031;
+  --green:#2f9e5a; --green-ink:#04170b; --free:#1b3a28; --free-ink:#bfe8cd;
+  --sel:#4cc17d; --sel-ink:#04170b; --res:#c9a227; --res-ink:#1c1400;
+  --sold:#1a2a21; --sold-ink:#5f7367; --accent:#fde68a; --accent-ink:#3d2f00; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.45;
+  padding-block:0 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+*{box-sizing:border-box}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:18px;padding-top:16px}
+.hero{background:var(--green);color:var(--green-ink);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}
+.badge{background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,8vw,46px);line-height:1;margin:6px 0 0;color:var(--accent);text-wrap:balance}
+.hero .by{font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}
+.fact small{display:block;color:var(--muted);font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:600}
+.fact b{font-family:var(--font-display);font-size:20px;font-variant-numeric:tabular-nums}
+.how{margin:0;color:var(--muted);font-size:14px}
+.how b{color:var(--ink)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.counts{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.dot.free{background:var(--free);outline:1px solid var(--line)}.dot.res{background:var(--res)}.dot.sold{background:var(--sold);outline:1px solid var(--line)}.dot.sel{background:var(--sel)}
+.finder{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+input[type=number],input[type=tel],input[type=text],input[type=password]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0}
+input[type=number]{width:120px}
+label.chk{display:flex;gap:6px;align-items:center;font-size:14px}
+section.hund{display:flex;flex-direction:column;gap:8px}
+section.hund h2{margin:0;font-family:var(--font-display);font-size:18px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+section.hund h2 span{font-family:var(--font-body);font-size:12px;color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px}
+.n{font:inherit;font-family:var(--font-display);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;border:1px dashed var(--line);border-radius:8px;height:44px;cursor:pointer;
+  background:var(--free);color:var(--free-ink);padding:0}
+.n:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.n.sel{background:var(--sel);color:var(--sel-ink);border-style:solid;border-color:var(--sel)}
+.n.res{background:var(--res);color:var(--res-ink);cursor:not-allowed;border-style:solid;border-color:transparent}
+.n.sold{background:var(--sold);color:var(--sold-ink);text-decoration:line-through;cursor:not-allowed;border-style:solid;border-color:transparent}
+.n.hit{outline:3px solid var(--accent);outline-offset:1px}
+.admin .n.res,.admin .n.sold{cursor:pointer}
+.pix{background:var(--surface);border:2px dashed var(--green);border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.pix small{display:block;color:var(--muted);font-size:12px}
+.pix b{font-family:var(--font-display);font-size:22px;font-variant-numeric:tabular-nums}
+button.btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:10px 16px;background:var(--green);color:var(--green-ink);cursor:pointer;text-decoration:none;display:inline-block}
+button.ghost,a.ghost{font:inherit;font-weight:600;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:9px 14px;cursor:pointer}
+button[disabled]{opacity:.5;cursor:not-allowed}
+.rules{font-size:13px;color:var(--muted);margin:0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);
+  padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:5}
+.bar .in{max-width:860px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.bar .sum{min-width:0;flex:1 1 180px}
+.bar .sum b{font-family:var(--font-display);font-size:17px}
+.bar .sum div{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.bar .acts{display:flex;gap:8px;flex-wrap:wrap}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.panel h3{margin:0;font-family:var(--font-display);font-size:17px}
+.panel .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.note{font-size:13px;color:var(--muted);margin:0}
+.msg{font-size:13px;font-weight:600;color:var(--green)}
+.err{color:#b3261e}
+@media (prefers-reduced-motion:no-preference){.n{transition:background .12s,transform .08s}.n:active{transform:scale(.94)}}
+</style></head><body><div id="root"></div>
+<script>
+(function(){
+// COLE AQUI o endereço do Apps Script (termina em /exec). Veja o LEIA-ME.
+var API_URL="COLE_AQUI_O_ENDERECO_DO_APPS_SCRIPT";
+var PRICE=35,FIRST=100,LAST=799,PIXKEY="661.931.171-72";
+var sold=new Set(),res=new Set(),sel=new Set(),changes={};
+var phone="",password="",unlocked=false,askPw=false,pwMsg="",admin=false,saving=false,flash="",flashErr=false,onlyFree=false,hit=null,loadErr="";
+var root=document.getElementById("root");
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function brl(v){return "R$ "+v.toFixed(2).replace(".",",")}
+function status(n){return sold.has(n)?"sold":res.has(n)?"res":"free"}
+function message(){
+  var l=Array.from(sel).sort(function(a,b){return a-b});
+  return l.length>1?"Escolhi os números "+l.join(", "):"Escolhi o número "+l[0];
+}
+function waLink(){
+  var d=phone.replace(/\D/g,"");if(!d)return null;if(d.length<=11)d="55"+d;
+  return "https://wa.me/"+d+"?text="+encodeURIComponent(message());
+}
+function copy(text,done){try{navigator.clipboard.writeText(text).then(function(){done(true)},function(){done(false)})}catch(e){done(false)}}
+function apply(s){
+  sold=new Set(s.sold||[]);res=new Set(s.reserved||[]);phone=s.phone||phone;
+  Object.keys(changes).forEach(function(k){var n=+k,v=changes[k];sold.delete(n);res.delete(n);if(v==="sold")sold.add(n);if(v==="res")res.add(n)});
+}
+function load(){
+  if(API_URL.indexOf("http")!==0){loadErr="Endereço do Apps Script ainda não configurado.";render();return}
+  fetch(API_URL).then(function(r){return r.json()}).then(function(s){loadErr="";apply(s);render()}).catch(function(){loadErr="Não foi possível atualizar a lista agora.";render()});
+}
+function post(body){
+  return fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}).then(function(r){return r.json()});
+}
+function save(){
+  saving=true;flash="Salvando…";flashErr=false;render();
+  post({password:password,changes:changes,phone:phone.trim()}).then(function(r){
+    saving=false;
+    if(r.error){flash=r.error==="senha"?"Senha incorreta.":"Erro ao salvar.";flashErr=true;render();return}
+    changes={};apply(r.state);flash="Salvo. Todos já veem a atualização.";render();
+  }).catch(function(){saving=false;flash="Sem conexão. Tente de novo.";flashErr=true;render()});
+}
+function dirty(){return Object.keys(changes).length>0}
+function render(){
+  var keep=window.scrollY;
+  var typing=document.activeElement&&document.activeElement.id;
+  root.textContent="";
+  var w=el("div","wrap"+(admin?" admin":""));
+  var hero=el("div","hero");
+  hero.appendChild(el("span","badge","Ação solidária"));
+  hero.appendChild(el("h1","","Rifa Solidária"));
+  hero.appendChild(el("div","by","Ademir Moreira Primo"));
+  w.appendChild(hero);
+  var facts=el("div","facts");
+  [["Prêmio","R$ 1.000,00"],["Cada número","R$ 35,00"],["Sorteio","20/12/2026"]].forEach(function(f){
+    var d=el("div","fact");d.appendChild(el("small","",f[0]));d.appendChild(el("b","",f[1]));facts.appendChild(d)});
+  w.appendChild(facts);
+  var how=el("p","how");
+  how.innerHTML="<b>Como participar:</b> toque nos números livres que quiser, depois em “Reservar pelo WhatsApp”. Pague por PIX e envie o comprovante. O sorteio usa os três últimos dígitos do 1º prêmio da Loteria Federal.";
+  w.appendChild(how);
+  if(loadErr)w.appendChild(el("p","note err",loadErr));
+  var nSold=sold.size,nRes=res.size,nFree=(LAST-FIRST+1)-nSold-nRes;
+  var tools=el("div","tools");var counts=el("div","counts");
+  [["free",nFree+" livres"],["res",nRes+" reservados"],["sold",nSold+" vendidos"],["sel","sua escolha"]].forEach(function(c){
+    var s=el("span");s.appendChild(el("i","dot "+c[0]));s.appendChild(document.createTextNode(c[1]));counts.appendChild(s)});
+  tools.appendChild(counts);w.appendChild(tools);
+  var finder=el("div","finder");
+  var inp=el("input");inp.type="number";inp.id="goto";inp.min=FIRST;inp.max=LAST;inp.placeholder="Ir ao nº";inp.setAttribute("aria-label","Ir ao número");
+  var go=el("button","ghost","Buscar");
+  go.onclick=function(){var v=parseInt(inp.value,10);if(v>=FIRST&&v<=LAST){hit=v;render();var t=document.getElementById("n"+v);if(t)t.scrollIntoView({block:"center"})}};
+  inp.onkeydown=function(e){if(e.key==="Enter")go.onclick()};
+  finder.appendChild(inp);finder.appendChild(go);
+  var lab=el("label","chk");var cb=el("input");cb.type="checkbox";cb.id="onlyfree";cb.checked=onlyFree;cb.onchange=function(){onlyFree=cb.checked;render()};
+  lab.appendChild(cb);lab.appendChild(document.createTextNode("Mostrar só livres"));finder.appendChild(lab);
+  w.appendChild(finder);
+  for(var h=1;h<=7;h++){
+    var a=h*100,b=a+99;if(a<FIRST)a=FIRST;
+    var free=0;for(var n=a;n<=b;n++)if(status(n)==="free")free++;
+    var sec=el("section","hund");
+    var h2=el("h2","",a+" a "+b);h2.appendChild(el("span","",free+" livres"));sec.appendChild(h2);
+    var g=el("div","grid");
+    for(var m=a;m<=b;m++){(function(m){
+      var st=status(m);if(onlyFree&&st!=="free"&&!sel.has(m))return;
+      var bt=el("button","n "+(st==="free"&&sel.has(m)?"sel":st)+(hit===m?" hit":""),String(m));
+      bt.id="n"+m;bt.type="button";
+      bt.setAttribute("aria-label","Número "+m+", "+{free:"livre",res:"reservado",sold:"vendido"}[st]+(sel.has(m)?", selecionado":""));
+      bt.onclick=function(){
+        if(admin){
+          var next=st==="free"?"res":st==="res"?"sold":"free";
+          changes[m]=next;sold.delete(m);res.delete(m);if(next==="sold")sold.add(m);if(next==="res")res.add(m);
+          flash="";render();return}
+        if(st!=="free")return;
+        if(sel.has(m))sel.delete(m);else sel.add(m);
+        render()};
+      g.appendChild(bt)})(m)}
+    sec.appendChild(g);w.appendChild(sec)}
+  var pix=el("div","pix");
+  var pl=el("div");pl.appendChild(el("small","","Chave PIX (CPF)"));pl.appendChild(el("b","",PIXKEY));
+  var pc=el("button","ghost","Copiar chave");pc.onclick=function(){copy(PIXKEY,function(ok){pc.textContent=ok?"Copiado":"Selecione e copie"})};
+  pix.appendChild(pl);pix.appendChild(pc);w.appendChild(pix);
+  w.appendChild(el("p","rules","Se o número sorteado não estiver entre 100 e 799, vale o 2º prêmio, depois 3º, 4º e 5º, em sequência. O resultado é público no site da Caixa Econômica Federal."));
+
+  if(!unlocked){
+    var foot=el("div","row");
+    var ob=el("button","ghost","Organizador");ob.onclick=function(){askPw=!askPw;pwMsg="";render()};foot.appendChild(ob);
+    w.appendChild(foot);
+    if(askPw){
+      var pp=el("div","panel");pp.appendChild(el("h3","","Senha do organizador"));
+      var pr=el("div","row");var pi=el("input");pi.type="password";pi.id="pw";pi.placeholder="Senha";pi.setAttribute("aria-label","Senha");
+      var pg=el("button","btn","Entrar");
+      pg.onclick=function(){
+        var v=pi.value;pg.disabled=true;
+        post({password:v,action:"check"}).then(function(r){
+          if(r.ok){password=v;unlocked=true;askPw=false;pwMsg="";render()}else{pwMsg="Senha incorreta.";render()}
+        }).catch(function(){pwMsg="Sem conexão. Tente de novo.";render()})};
+      pi.onkeydown=function(e){if(e.key==="Enter")pg.onclick()};
+      pr.appendChild(pi);pr.appendChild(pg);pp.appendChild(pr);
+      if(pwMsg)pp.appendChild(el("span","msg err",pwMsg));
+      w.appendChild(pp)}
+  }else{
+    var p=el("div","panel");p.appendChild(el("h3","","Organizador"));
+    var r1=el("div","row");var lab2=el("label","chk");var c2=el("input");c2.type="checkbox";c2.id="adminmode";c2.checked=admin;
+    c2.onchange=function(){admin=c2.checked;sel.clear();render()};
+    lab2.appendChild(c2);lab2.appendChild(document.createTextNode("Editar números"));r1.appendChild(lab2);p.appendChild(r1);
+    p.appendChild(el("p","note","Cada toque num número muda: livre → reservado → vendido → livre. Depois toque em Salvar."));
+    var r2=el("div","row");var ph=el("input");ph.type="tel";ph.id="phone";ph.placeholder="Seu WhatsApp com DDD";ph.value=phone;ph.setAttribute("aria-label","Seu WhatsApp com DDD");
+    ph.oninput=function(){phone=ph.value;changes._p=1;sv.disabled=false};
+    r2.appendChild(ph);p.appendChild(r2);
+    var r3=el("div","row");var sv=el("button","btn","Salvar alterações");sv.id="save";sv.disabled=saving||!dirty();
+    sv.onclick=save;r3.appendChild(sv);
+    if(flash)r3.appendChild(el("span","msg"+(flashErr?" err":""),flash));
+    else if(dirty())r3.appendChild(el("span","note","Alterações ainda não salvas."));
+    p.appendChild(r3);
+    var ex=el("button","ghost","Sair do modo organizador");ex.onclick=function(){unlocked=false;admin=false;password="";render()};p.appendChild(ex);
+    w.appendChild(p)}
+  root.appendChild(w);
+  if(sel.size&&!admin){
+    var bar=el("div","bar");var inn=el("div","in");
+    var sm=el("div","sum");sm.appendChild(el("b","",sel.size+(sel.size>1?" números":" número")+" · "+brl(sel.size*PRICE)));
+    sm.appendChild(el("div","",Array.from(sel).sort(function(a,b){return a-b}).join(", ")));
+    var acts=el("div","acts");
+    var clr=el("button","ghost","Limpar");clr.onclick=function(){sel.clear();render()};
+    var link=waLink();
+    if(link){var a2=el("a","btn","Reservar pelo WhatsApp");a2.href=link;a2.target="_blank";a2.rel="noopener";a2.style.padding="10px 16px";a2.style.borderRadius="10px";a2.style.fontWeight="700";acts.appendChild(clr);acts.appendChild(a2)}
+    else{var cp=el("button","btn","Copiar mensagem");cp.onclick=function(){copy(message(),function(ok){cp.textContent=ok?"Copiado. Cole no WhatsApp":"Não foi possível copiar"})};acts.appendChild(clr);acts.appendChild(cp)}
+    inn.appendChild(sm);inn.appendChild(acts);bar.appendChild(inn);root.appendChild(bar)}
+  window.scrollTo(0,keep);
+  if(typing){var t=document.getElementById(typing);if(t&&t.tagName==="INPUT"&&t.type!=="checkbox")t.focus()}
+}
+render();load();
+setInterval(function(){if(!dirty()&&!saving&&document.visibilityState==="visible")load()},30000);
+})();
+
+</script></body></html>

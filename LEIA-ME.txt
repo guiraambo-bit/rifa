@@ -1,0 +1,25 @@
+RIFA NA INTERNET (GitHub Pages + Google Apps Script) - tudo gratuito
+
+PARTE 1 - O "cofre" dos números (Google)
+1. Entre em script.google.com e clique em "Novo projeto".
+2. Apague o código que aparece e cole todo o conteúdo do arquivo apps-script.gs.
+3. Na linha SENHA, troque pela senha que você quer. Confira o WHATSAPP.
+4. Clique em "Implantar" > "Nova implantação" > engrenagem > "App da Web".
+   - Executar como: Eu
+   - Quem tem acesso: Qualquer pessoa
+   Clique em Implantar e autorize quando o Google pedir.
+5. Copie o endereço que termina em /exec.
+
+PARTE 2 - A página (GitHub)
+1. Abra o arquivo index.html num editor de texto (Bloco de Notas).
+2. Troque COLE_AQUI_O_ENDERECO_DO_APPS_SCRIPT pelo endereço /exec (mantenha as aspas).
+3. No GitHub, crie um repositório novo (público), por exemplo "rifa".
+4. Clique em "uploading an existing file" e arraste o index.html. Confirme em Commit.
+5. Em Settings > Pages > Branch: main, pasta /(root) > Save.
+6. Em 1 a 2 minutos o endereço aparece: https://SEUUSUARIO.github.io/rifa/
+   Esse é o link que você manda no WhatsApp.
+
+COMO USAR
+- Na página, toque em "Organizador", digite a senha, ligue "Editar números",
+  marque e toque em "Salvar alterações". Funciona de qualquer celular.
+- Se mudar a senha depois, edite no Apps Script e faça "Implantar" > "Gerenciar implantações" > editar > nova versão.
