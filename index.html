@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rifa Solidária Ademir Moreira Primo</title>
+<title>Ação Solidária</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&display=swap">
 <style>
 /* Layout: cabeçalho verde como o folheto, grade de números 100-799 agrupada por centena, barra fixa de reserva no rodapé */
@@ -123,12 +123,10 @@ function render(){
   root.textContent="";
   var w=el("div","wrap"+(admin?" admin":""));
   var hero=el("div","hero");
-  hero.appendChild(el("span","badge","Ação solidária"));
-  hero.appendChild(el("h1","","Rifa Solidária"));
-  hero.appendChild(el("div","by","Ademir Moreira Primo"));
+  hero.appendChild(el("h1","","AÇÃO SOLIDÁRIA"));
   w.appendChild(hero);
   var facts=el("div","facts");
-  [["Prêmio","R$ 1.000,00"],["Cada número","R$ 35,00"],["Sorteio","20/12/2026"]].forEach(function(f){
+  [["Prêmios","1º Prêmio: R$ 1.500,00 + 2º Prêmio: R$ 500,00 via PIX"],["Cada número","R$ 35,00"],["Sorteio","20/12/2026"]].forEach(function(f){
     var d=el("div","fact");d.appendChild(el("small","",f[0]));d.appendChild(el("b","",f[1]));facts.appendChild(d)});
   w.appendChild(facts);
   var how=el("p","how");
