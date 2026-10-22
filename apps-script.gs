@@ -1,6 +1,6 @@
 // Backend da rifa: guarda os números vendidos/reservados e confere a senha.
 // TROQUE a senha abaixo antes de implantar.
-var SENHA = "troque-esta-senha";
+var SENHA = "2027";
 var WHATSAPP = "67992164994"; // seu WhatsApp com DDD, só números
 
 function estado_() {
