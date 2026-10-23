@@ -3,7 +3,7 @@
 <title>Ação Solidária</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&display=swap">
 <style>
-/* Layout: cabeçalho verde como o folheto, grade de números 100-799 agrupada por centena, barra fixa de reserva no rodapé */
+/* Layout: cabeçalho verde como o folheto, grade de números 000-500 agrupada por centena, barra fixa de reserva no rodapé */
 :root{
   --bg:#eef4ef; --surface:#ffffff; --ink:#10261a; --muted:#566b5d; --line:#d3e0d6;
   --green:#166534; --green-ink:#ffffff; --free:#e2f2e7; --free-ink:#0f4f28;
@@ -81,16 +81,17 @@ button[disabled]{opacity:.5;cursor:not-allowed}
 (function(){
 // COLE AQUI o endereço do Apps Script (termina em /exec). Veja o LEIA-ME.
 var API_URL="https://script.google.com/macros/s/AKfycbx79TufX_0GzLvkyb0VM70rddnVbTlA0u4B4SDjRNw5tpWMPMb6eK_AVfMX0HrONvxl/exec";
-var PRICE=35,FIRST=100,LAST=799,PIXKEY="661.931.171-72";
+var PRICE=35,FIRST=0,LAST=500,PIXKEY="661.931.171-72";
 var sold=new Set(),res=new Set(),sel=new Set(),changes={};
 var phone="",password="",unlocked=false,askPw=false,pwMsg="",admin=false,saving=false,flash="",flashErr=false,onlyFree=false,hit=null,loadErr="";
 var root=document.getElementById("root");
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function brl(v){return "R$ "+v.toFixed(2).replace(".",",")}
+function pad(n){return String(n).padStart(3,"0")}
 function status(n){return sold.has(n)?"sold":res.has(n)?"res":"free"}
 function message(){
   var l=Array.from(sel).sort(function(a,b){return a-b});
-  return l.length>1?"Escolhi os números "+l.join(", "):"Escolhi o número "+l[0];
+  return l.length>1?"Escolhi os números "+l.map(pad).join(", "):"Escolhi o número "+pad(l[0]);
 }
 function waLink(){
   var d=phone.replace(/\D/g,"");if(!d)return null;if(d.length<=11)d="55"+d;
@@ -126,11 +127,11 @@ function render(){
   hero.appendChild(el("h1","","AÇÃO SOLIDÁRIA"));
   w.appendChild(hero);
   var facts=el("div","facts");
-  [["Prêmios","1º Prêmio: R$ 1.500,00 + 2º Prêmio: R$ 500,00 via PIX"],["Cada número","R$ 35,00"],["Sorteio","20/12/2026"]].forEach(function(f){
+  [["Prêmio","R$ 1.000,00 via PIX"],["Cada número","R$ 35,00"],["Sorteio","20/12/2026"]].forEach(function(f){
     var d=el("div","fact");d.appendChild(el("small","",f[0]));d.appendChild(el("b","",f[1]));facts.appendChild(d)});
   w.appendChild(facts);
   var how=el("p","how");
-  how.innerHTML="<b>Como participar:</b> toque nos números livres que quiser, depois em “Reservar pelo WhatsApp”. Pague por PIX e envie o comprovante. O sorteio usa os três últimos dígitos do 1º prêmio da Loteria Federal.";
+  how.innerHTML="<b>Como participar:</b> toque nos números livres que quiser, depois em \u201cReservar pelo WhatsApp\u201d. Pague por PIX e envie o comprovante. O sorteio usa os três últimos dígitos do 1º prêmio da Loteria Federal.";
   w.appendChild(how);
   if(loadErr)w.appendChild(el("p","note err",loadErr));
   var nSold=sold.size,nRes=res.size,nFree=(LAST-FIRST+1)-nSold-nRes;
@@ -147,17 +148,17 @@ function render(){
   var lab=el("label","chk");var cb=el("input");cb.type="checkbox";cb.id="onlyfree";cb.checked=onlyFree;cb.onchange=function(){onlyFree=cb.checked;render()};
   lab.appendChild(cb);lab.appendChild(document.createTextNode("Mostrar só livres"));finder.appendChild(lab);
   w.appendChild(finder);
-  for(var h=1;h<=7;h++){
-    var a=h*100,b=a+99;if(a<FIRST)a=FIRST;
+  for(var h=0;h<=5;h++){
+    var a=h*100,b=Math.min(a+99,LAST);if(a<FIRST)a=FIRST;
     var free=0;for(var n=a;n<=b;n++)if(status(n)==="free")free++;
     var sec=el("section","hund");
-    var h2=el("h2","",a+" a "+b);h2.appendChild(el("span","",free+" livres"));sec.appendChild(h2);
+    var h2=el("h2","",pad(a)+" a "+pad(b));h2.appendChild(el("span","",free+" livres"));sec.appendChild(h2);
     var g=el("div","grid");
     for(var m=a;m<=b;m++){(function(m){
       var st=status(m);if(onlyFree&&st!=="free"&&!sel.has(m))return;
-      var bt=el("button","n "+(st==="free"&&sel.has(m)?"sel":st)+(hit===m?" hit":""),String(m));
+      var bt=el("button","n "+(st==="free"&&sel.has(m)?"sel":st)+(hit===m?" hit":""),pad(m));
       bt.id="n"+m;bt.type="button";
-      bt.setAttribute("aria-label","Número "+m+", "+{free:"livre",res:"reservado",sold:"vendido"}[st]+(sel.has(m)?", selecionado":""));
+      bt.setAttribute("aria-label","Número "+pad(m)+", "+{free:"livre",res:"reservado",sold:"vendido"}[st]+(sel.has(m)?", selecionado":""));
       bt.onclick=function(){
         if(admin){
           var next=st==="free"?"res":st==="res"?"sold":"free";
@@ -172,7 +173,7 @@ function render(){
   var pl=el("div");pl.appendChild(el("small","","Chave PIX (CPF)"));pl.appendChild(el("b","",PIXKEY));
   var pc=el("button","ghost","Copiar chave");pc.onclick=function(){copy(PIXKEY,function(ok){pc.textContent=ok?"Copiado":"Selecione e copie"})};
   pix.appendChild(pl);pix.appendChild(pc);w.appendChild(pix);
-  w.appendChild(el("p","rules","Se o número sorteado não estiver entre 100 e 799, vale o 2º prêmio, depois 3º, 4º e 5º, em sequência. O resultado é público no site da Caixa Econômica Federal."));
+  w.appendChild(el("p","rules","Se o número sorteado não estiver entre 000 e 500, vale o número subsequente da Loteria Federal em sequência. O resultado é público no site da Caixa Econômica Federal."));
 
   if(!unlocked){
     var foot=el("div","row");
@@ -211,7 +212,7 @@ function render(){
   if(sel.size&&!admin){
     var bar=el("div","bar");var inn=el("div","in");
     var sm=el("div","sum");sm.appendChild(el("b","",sel.size+(sel.size>1?" números":" número")+" · "+brl(sel.size*PRICE)));
-    sm.appendChild(el("div","",Array.from(sel).sort(function(a,b){return a-b}).join(", ")));
+    sm.appendChild(el("div","",Array.from(sel).sort(function(a,b){return a-b}).map(pad).join(", ")));
     var acts=el("div","acts");
     var clr=el("button","ghost","Limpar");clr.onclick=function(){sel.clear();render()};
     var link=waLink();
