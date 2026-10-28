@@ -30,7 +30,7 @@ function doPost(e) {
     var ch = d.changes || {};
     Object.keys(ch).forEach(function (k) {
       var n = parseInt(k, 10);
-      if (!(n >= 100 && n <= 799)) return;
+      if (!(n >= 0 && n <= 500)) return;
       delete sold[n]; delete res[n];
       if (ch[k] === "sold") sold[n] = 1;
       if (ch[k] === "res") res[n] = 1;
